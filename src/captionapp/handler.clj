@@ -1,4 +1,4 @@
-(ns chatter.handler
+(ns captionapp.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
@@ -23,10 +23,10 @@
   [messages]
   (page/html5
       [:head
-        [:title "chatter"]
+        [:title "Caption This!"]
         (page/include-css "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
         (page/include-js  "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js")
-        (page/include-css "/chatter.css")
+        (page/include-css "/captionapp.css")
       ]
       [:body
         [:h1 "Caption this!"]
@@ -39,9 +39,9 @@
             [:post "/"]
               "Name: " (form/text-field "name")
               " Caption: " (form/text-field "msg")
-              "  " (form/submit-button "Submit") ;Ugly to create space
+              "  " (form/submit-button "Submit") ;Jank to create space
           )
-          [:table#messages.table.table-striped.table-hover
+          [:table#messages.table.table-bordered.table-hover
             (map
                 (fn [m]
                   [:tr
@@ -64,7 +64,7 @@
 )
 
 (defn update-messages!
-  "This will update a message list atom"
+  "This will update a caption list atom"
   [messages name new-message]
   (swap! messages conj {:name name :message new-message})
 )
@@ -96,10 +96,10 @@
 )
 
 (defn init []
-  (println "chatter is starting"))
+  (println "captionapp is starting"))
 
 (defn destroy []
-  (println "chatter is shutting down"))
+  (println "captionapp is shutting down"))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
