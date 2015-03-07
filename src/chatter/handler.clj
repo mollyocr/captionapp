@@ -6,6 +6,7 @@
             [ring.adapter.jetty :as jetty]
             [hiccup.page :as page]
             [hiccup.form :as form]
+            [hiccup.element :as element]
             [ring.util.anti-forgery :as anti-forgery]
             [environ.core :refer [env]]
   )
@@ -28,13 +29,17 @@
         (page/include-css "/chatter.css")
       ]
       [:body
-        [:h1 "Molly's Chat App"]
-        [:p
+        [:h1 "Caption this!"]
+
+;Bootstrap grid starts here
+        [:div.row
+;Left column
+        [:div.col-md-8
           (form/form-to
             [:post "/"]
               "Name: " (form/text-field "name")
-        [:p   "Message: " (form/text-field "msg")]
-              (form/submit-button "Submit")
+              " Caption: " (form/text-field "msg")
+              "  " (form/submit-button "Submit") ;Ugly to create space
           )
           [:table#messages.table.table-striped.table-hover
             (map
@@ -48,6 +53,12 @@
             )
           ]
         ]
+
+;Right column
+        [:div.col-md-4
+        (element/image "pupinswing.png" "Pup in swing!")
+        ]
+      ] ;Boostrap grid ends here
       ]
   )
 )
