@@ -1,6 +1,6 @@
 # chatter
 
-FIXME
+This is a simple web app that will display posted messages. Molly is making it as part of ClojureBridge.MN. Huzzah!
 
 ## Prerequisites
 
@@ -16,4 +16,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2015 FIXME
+Copyright © 2015 mollyocr, courtesy of clojurebridgemn.org
