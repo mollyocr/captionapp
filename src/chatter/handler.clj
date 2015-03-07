@@ -2,9 +2,12 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [ring.middleware.params :refer [wrap-params]]
+            [ring.adapter.jetty :as jetty]
             [hiccup.page :as page]
             [hiccup.form :as form]
-            [ring.middleware.params :refer [wrap-params]]
+            [ring.util.anti-forgery :as anti-forgery]
+            [environ.core :refer [env]]
   )
 )
 
@@ -20,6 +23,9 @@
   (page/html5
       [:head
         [:title "chatter"]
+        (page/include-css "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
+        (page/include-js  "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js")
+        (page/include-css "/chatter.css")
       ]
       [:body
         [:h1 "Molly's Chat App"]
@@ -30,7 +36,7 @@
         [:p   "Message: " (form/text-field "msg")]
               (form/submit-button "Submit")
           )
-          [:table
+          [:table#messages.table.table-striped.table-hover
             (map
                 (fn [m]
                   [:tr
@@ -70,9 +76,20 @@
       (generate-message-view new-messages)
     )
   )
+  (route/resources "/")
   (route/not-found "Not Found")
 )
 
 (def app
   (wrap-params app-routes)
 )
+
+(defn init []
+  (println "chatter is starting"))
+
+(defn destroy []
+  (println "chatter is shutting down"))
+
+(defn -main [& [port]]
+  (let [port (Integer. (or port (env :port) 5000))]
+    (jetty/run-jetty #'app {:port port :join? false})))
