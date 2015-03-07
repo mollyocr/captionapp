@@ -59,6 +59,7 @@
         (element/image "pupinswing.png" "Pup in swing!")
         ]
       ] ;Boostrap grid ends here
+      [:p "Copyright © 2015 @mollyocr, courtesy of clojurebridgemn.org"]
       ]
   )
 )

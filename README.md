@@ -1,6 +1,6 @@
 # chatter
 
-This is a simple web app that will display posted messages. Molly is making it as part of ClojureBridge.MN. Huzzah!
+This is a simple web app to post captions to a funny photo. Molly made it as part of ClojureBridge.MN. Huzzah!
 
 ## Prerequisites
 
